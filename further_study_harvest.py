@@ -85,7 +85,7 @@ def make_melon_type_lookup(melon_types):
         melon_lookup[melon.code] = melon
     return melon_lookup
 
-make_melon_type_lookup(make_melon_types())
+# make_melon_type_lookup(make_melon_types())
 
 ############
 # Part 2   #
@@ -114,7 +114,7 @@ class Melon(MelonType):
         self.color_rating = color_rating
         self.harvest_field = harvest_field
         self.harvester = harvester
-        # self.is_sellable = self.is_sellable(shape_rating, color_rating, harvest_field)
+        #self.is_sellable = self.is_sellable(shape_rating, color_rating, harvest_field)
 
     def is_sellable(self, shape_rating, color_rating, harvest_field):
         return shape_rating > 5 and color_rating > 5 and harvest_field != 3
@@ -125,38 +125,37 @@ def make_melons(melon_types):
     # Fill in the rest
     melon_list = []
 
+    # psuedo code
+    # open the file which gives us a file object with lines to loop through
+    # loop through each line, strip whitespace, and split on spaces to create lists per line
+    # assign a melon number based on the line number (FIGURE OUT HOW preferably without creating another dict)
+    # 
+
+
+
+    harvest_log = open('harvest_log.txt')
+
     melons_by_id = make_melon_type_lookup(melon_types)
 
-    melon_1 = Melon(melons_by_id['yw'], 8, 7, 2, 'Sheila')
-    melon_list.append(melon_1)
+    for idx, line in enumerate(harvest_log):
+        line = line.split()
+        melon_idx = Melon(melons_by_id[line[5]], line[1], line[3], line[11], line[8])
+        print(melon_idx)
+        melon_list.append(melon_idx)
 
-    melon_2 = Melon(melons_by_id["yw"], 3, 4, 2, 'Sheila')
-    melon_list.append(melon_2)
+    return melon_list    
+    
+        # print(idx, line)
 
-    melon_3 = Melon(melons_by_id['yw'], 9, 8, 3, 'Sheila')
-    melon_list.append(melon_3)
+    
 
-    melon_4 = Melon(melons_by_id['cas'], 10, 6, 35, 'Sheila')
-    melon_list.append(melon_4)
-
-    melon_5 = Melon(melons_by_id['cren'], 8, 9, 35, 'Michael')
-    melon_list.append(melon_5)
-
-    melon_6 = Melon(melons_by_id['cren'], 8, 2, 35, 'Michael')
-    melon_list.append(melon_6)
-
-    melon_7 = Melon(melons_by_id['cren'], 2, 3, 4, 'Michael')
-    melon_list.append(melon_7)
-
-    melon_8 = Melon(melons_by_id['musk'], 6, 7, 4, 'Michael')
-    melon_list.append(melon_8)
-
-    melon_9 = Melon(melons_by_id['yw'], 7, 10, 3, 'Sheila')
-    melon_list.append(melon_9)
+    # melon_1 = Melon(melons_by_id['yw'], 8, 7, 2, 'Sheila')
+    # melon_list.append(melon_1)
+    harvest_log = open
 
     return melon_list
 
-# make_melons(make_melon_types())
+make_melons(make_melon_types())
 
 
 def get_sellability_report(melons):
@@ -166,10 +165,23 @@ def get_sellability_report(melons):
 
 
     for melon in melons:
-        sellable = '(CAN BE SOLD)' if melon.is_sellable(melon.shape_rating, melon.color_rating, melon.harvest_field) else '(NOT SELLABLE)'
+        sellable = '(CAN BE SOLD)' if melon.is_sellable else '(NOT SELLABLE)'
         print(f"Harvested by {melon.harvester} from Field {melon.harvest_field} {sellable}")
 
 
-get_sellability_report(make_melons(make_melon_types()))
+# get_sellability_report(make_melons(make_melon_types()))
 
 
+# def open_file(filename):
+#     '''Return list of each line of a text file
+
+#     for example:
+#         ['line 1 item 1', 'list 1 item 2'], ['line 2']'''
+
+#     f = open(filename)
+#     for line in f:
+#         line = line.rstrip()
+#         line = line.split()
+#         print(line)
+
+# open_file('harvest_log.txt')
